@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meet Car — 高端汽车生活方式</title>
+<style>
+/* ====== CSS Variables ====== */
+:root {
+  --black: #0B0D0F;
+  --carbon: #1A1D23;
+  --steel: #2A2D33;
+  --red: #E8372C;
+  --amber: #F5A623;
+  --white: #F0EDE8;
+  --gray: #8A8D93;
+  --radius: 8px;
+  --transition: 0.3s ease;
+}
+
+/* ====== Reset ====== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* ====== Body — Fixed Background Poster ====== */
+body {
+  font-family: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', sans-serif;
+  background: var(--black);
+  color: var(--white);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Fixed poster background — gradient placeholder for now */
+.bg-poster {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100vh;
+  z-index: -2;
+  background:
+    radial-gradient(ellipse at 40% 30%, rgba(232,55,44,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 60%, rgba(245,166,35,0.08) 0%, transparent 50%),
+    linear-gradient(180deg, #0B0D0F 0%, #111318 40%, #1A1D23 70%, #0B0D0F 100%);
+}
+
+/* Track pattern overlay */
+.bg-poster::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100vh;
+  z-index: -1;
+  opacity: 0.03;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(255,255,255,0.5) 40px, rgba(255,255,255,0.5) 41px),
+    repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(255,255,255,0.3) 80px, rgba(255,255,255,0.3) 81px);
+}
+
+/* ====== Navigation ====== */
+.nav {
+  position: fixed;
+  top: 0; width: 100%;
+  z-index: 100;
+  background: rgba(11,13,15,0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  transition: var(--transition);
+}
+.nav-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  height: 64px;
+}
+
+.logo {
+  font-size: 1.4rem;
+  font-weight: 900;
+  letter-spacing: 4px;
+  color: var(--white);
+  text-decoration: none;
+}
+.logo span { color: var(--red); }
+
+.nav-links {
+  display: flex;
+  gap: 0.4rem;
+  list-style: none;
+  flex-wrap: wrap;
+}
+.nav-links a {
+  color: var(--gray);
+  text-decoration: none;
+  padding: 0.5rem 0.9rem;
+  border-radius: var(--radius);
+  font-size: 0.88rem;
+  letter-spacing: 0.5px;
+  transition: var(--transition);
+}
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--white);
+  background: rgba(255,255,255,0.06);
+}
+
+.nav-cta {
+  background: var(--red) !important;
+  color: #fff !important;
+  font-weight: 600;
+  padding: 0.5rem 1.2rem !important;
+}
+.nav-cta:hover { background: #c92d22 !important; }
+
+/* Mobile hamburger */
+.hamburger { display: none; background: none; border: none; color: var(--white); font-size: 1.6rem; cursor: pointer; }
+
+/* ====== Hero ====== */
+.hero {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 2rem;
+}
+.hero-content { max-width: 800px; }
+
+.hero .tagline {
+  display: inline-block;
+  color: var(--red);
+  text-transform: uppercase;
+  letter-spacing: 6px;
+  font-size: 0.8rem;
+  margin-bottom: 1.5rem;
+  padding: 0.3rem 1rem;
+  border: 1px solid rgba(232,55,44,0.3);
+  border-radius: 20px;
+}
+
+.hero h1 {
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 900;
+  letter-spacing: 2px;
+  line-height: 1.15;
+  margin-bottom: 1.2rem;
+}
+.hero h1 .accent { color: var(--red); }
+
+.hero .subtitle {
+  color: var(--gray);
+  font-size: 1.1rem;
+  margin-bottom: 2.5rem;
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 0.9rem 2rem;
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  transition: var(--transition);
+  display: inline-block;
+}
+.btn-primary { background: var(--red); color: #fff; }
+.btn-primary:hover { background: #c92d22; transform: translateY(-1px); }
+.btn-outline { background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.25); }
+.btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.04); }
+.btn-amber { background: var(--amber); color: #111; }
+.btn-amber:hover { background: #d48f1a; }
+
+/* ====== Section Common ====== */
+.section {
+  padding: 6rem 2rem;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.section-label {
+  display: inline-block;
+  color: var(--red);
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-size: 0.75rem;
+  margin-bottom: 1rem;
+}
+.section-title {
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 800;
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+}
+.section-desc {
+  color: var(--gray);
+  max-width: 600px;
+  margin-bottom: 3rem;
+  font-size: 0.95rem;
+}
+
+/* ====== Placeholder Blocks ====== */
+.placeholder-block {
+  background: var(--carbon);
+  border: 1px dashed rgba(255,255,255,0.1);
+  border-radius: var(--radius);
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  color: var(--gray);
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  transition: var(--transition);
+}
+.placeholder-block:hover {
+  border-color: var(--red);
+  color: var(--white);
+}
+
+.block-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+/* ====== Race Hub Cards ====== */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+.card {
+  background: var(--carbon);
+  border-radius: var(--radius);
+  padding: 1.8rem;
+  border: 1px solid rgba(255,255,255,0.05);
+  transition: var(--transition);
+}
+.card:hover { border-color: rgba(255,255,255,0.12); transform: translateY(-2px); }
+.card-icon { font-size: 2rem; margin-bottom: 0.8rem; }
+.card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+.card p { color: var(--gray); font-size: 0.88rem; margin-bottom: 1rem; }
+.card a { color: var(--red); text-decoration: none; font-size: 0.85rem; font-weight: 600; }
+.card .live-dot {
+  display: inline-block;
+  width: 8px; height: 8px;
+  background: #22c55e;
+  border-radius: 50%;
+  margin-right: 0.4rem;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+.card .countdown {
+  color: var(--amber);
+  font-size: 1.5rem;
+  font-weight: 800;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 2px;
+}
+
+/* ====== Booking Section ====== */
+.booking-section {
+  background: linear-gradient(180deg, var(--carbon) 0%, rgba(26,29,35,0.6) 100%);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+  padding: 3rem 2rem;
+}
+
+.booking-steps {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+.step-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--gray);
+  font-size: 0.88rem;
+}
+.step-indicator .step-num {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  border: 2px solid var(--steel);
+  background: var(--carbon);
+}
+.step-indicator.active .step-num {
+  border-color: var(--red);
+  background: var(--red);
+  color: #fff;
+}
+.step-indicator.active { color: var(--white); }
+
+.booking-step { display: none; }
+.booking-step.active { display: block; }
+
+/* Service type cards */
+.service-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+.service-card {
+  background: var(--black);
+  border: 2px solid var(--steel);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: var(--transition);
+  text-align: center;
+}
+.service-card:hover { border-color: rgba(255,255,255,0.3); }
+.service-card.selected {
+  border-color: var(--red);
+  background: rgba(232,55,44,0.06);
+}
+.service-card .price {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin: 0.8rem 0 0.3rem;
+}
+.service-card .price small { font-size: 0.8rem; font-weight: 400; color: var(--gray); }
+.service-card .duration { color: var(--amber); font-size: 0.85rem; font-weight: 600; }
+
+/* Duration selector */
+.duration-options {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  margin: 1.5rem 0;
+}
+.duration-chip {
+  padding: 0.7rem 1.5rem;
+  border: 1px solid var(--steel);
+  border-radius: 20px;
+  background: transparent;
+  color: var(--white);
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: var(--transition);
+}
+.duration-chip:hover { border-color: rgba(255,255,255,0.4); }
+.duration-chip.selected {
+  background: var(--red);
+  border-color: var(--red);
+}
+
+/* Calendar + Time picker */
+.datetime-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin: 1.5rem 0;
+}
+.date-picker input {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  background: var(--black);
+  border: 1px solid var(--steel);
+  border-radius: var(--radius);
+  color: var(--white);
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+.time-slots {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.6rem;
+}
+.time-slot {
+  padding: 0.7rem;
+  background: var(--black);
+  border: 1px solid var(--steel);
+  border-radius: var(--radius);
+  color: var(--gray);
+  cursor: pointer;
+  font-size: 0.85rem;
+  text-align: center;
+  transition: var(--transition);
+}
+.time-slot:hover { color: var(--white); border-color: rgba(255,255,255,0.3); }
+.time-slot.selected {
+  background: var(--red);
+  border-color: var(--red);
+  color: #fff;
+}
+.time-slot.unavailable {
+  opacity: 0.3;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+
+/* Notes */
+.notes-box {
+  background: var(--black);
+  border: 1px solid var(--steel);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+.notes-box h4 { color: var(--amber); margin-bottom: 0.8rem; font-size: 0.95rem; }
+.notes-box ul { padding-left: 1.2rem; color: var(--gray); font-size: 0.88rem; }
+.notes-box li { margin-bottom: 0.4rem; }
+
+/* Booking navigation */
+.booking-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+/* Summary box */
+.summary-box {
+  background: var(--black);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.summary-box .row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  font-size: 0.93rem;
+}
+.summary-box .row:last-child { border: none; }
+.summary-box .total { font-size: 1.3rem; font-weight: 800; color: var(--red); }
+
+/* Form */
+.form-group { margin-bottom: 1.2rem; }
+.form-group label { display: block; margin-bottom: 0.4rem; font-size: 0.88rem; color: var(--gray); }
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background: var(--black);
+  border: 1px solid var(--steel);
+  border-radius: var(--radius);
+  color: var(--white);
+  font-size: 0.93rem;
+  transition: var(--transition);
+  font-family: inherit;
+}
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--red);
+}
+
+/* Success */
+.success-msg {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+.success-msg .check { font-size: 4rem; margin-bottom: 1rem; }
+.success-msg h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+.success-msg p { color: var(--gray); }
+
+/* ====== Leaderboard / 天梯 ====== */
+.leaderboard-tabs {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+.lb-tab {
+  padding: 0.5rem 1.2rem;
+  border: 1px solid var(--steel);
+  border-radius: 20px;
+  background: transparent;
+  color: var(--gray);
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: var(--transition);
+}
+.lb-tab:hover, .lb-tab.active {
+  border-color: var(--amber);
+  color: var(--amber);
+  background: rgba(245,166,35,0.06);
+}
+.lb-tab.active { font-weight: 600; }
+
+.lb-table-wrap {
+  overflow-x: auto;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.lb-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  min-width: 700px;
+}
+.lb-table thead { background: var(--carbon); }
+.lb-table th {
+  padding: 0.9rem 1rem;
+  text-align: left;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--gray);
+  font-weight: 600;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.lb-table td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  transition: var(--transition);
+}
+.lb-table tbody tr { transition: var(--transition); }
+.lb-table tbody tr:hover { background: rgba(255,255,255,0.02); }
+
+/* Top 3 styling */
+.lb-table .rank-1 td { background: rgba(245,166,35,0.08); }
+.lb-table .rank-2 td { background: rgba(180,180,180,0.06); }
+.lb-table .rank-3 td { background: rgba(205,127,50,0.05); }
+.lb-table .rank-1 td:first-child,
+.lb-table .rank-2 td:first-child,
+.lb-table .rank-3 td:first-child { font-weight: 800; font-size: 1.1rem; }
+
+/* Current user highlight */
+.lb-table .is-me td { background: rgba(232,55,44,0.1); border-left: 3px solid var(--red); }
+
+.lb-medal { font-size: 1.2rem; }
+
+.lb-time {
+  font-family: 'Courier New', 'SF Mono', monospace;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--amber);
+  font-size: 1rem;
+}
+.lb-time.best { color: #22c55e; }
+
+.lb-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+.lb-badge.up { background: rgba(34,197,94,0.15); color: #22c55e; }
+.lb-badge.down { background: rgba(232,55,44,0.15); color: var(--red); }
+.lb-badge.new { background: rgba(245,166,35,0.15); color: var(--amber); }
+
+/* Personal best card */
+.pb-card {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.pb-item {
+  background: var(--carbon);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--radius);
+  padding: 1.2rem;
+  text-align: center;
+}
+.pb-item .pb-label { font-size: 0.75rem; color: var(--gray); text-transform: uppercase; letter-spacing: 2px; }
+.pb-item .pb-value { font-size: 1.6rem; font-weight: 800; color: var(--amber); font-family: 'Courier New', monospace; margin-top: 0.3rem; }
+.pb-item .pb-track { font-size: 0.82rem; color: var(--gray); margin-top: 0.2rem; }
+
+/* ====== Footer ====== */
+.footer {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: var(--gray);
+  font-size: 0.82rem;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+.footer a { color: var(--gray); text-decoration: none; }
+
+/* ====== Responsive ====== */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    width: 100%;
+    background: rgba(11,13,15,0.96);
+    backdrop-filter: blur(20px);
+    padding: 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .hamburger { display: block; }
+  .datetime-grid { grid-template-columns: 1fr; }
+  .time-slots { grid-template-columns: repeat(3, 1fr); }
+  .booking-steps { gap: 1rem; font-size: 0.8rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ====== Fixed Background Poster ====== -->
+<div class="bg-poster"></div>
+
+<!-- ====== Top Navigation ====== -->
+<nav class="nav" id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="logo">Meet<span> Car</span></a>
+    <button class="hamburger" onclick="toggleMenu()">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home" class="active">首页</a></li>
+      <li><a href="#about">关于我们</a></li>
+      <li><a href="#race-hub">赛事直达</a></li>
+      <li><a href="#news">赛车新闻</a></li>
+      <li><a href="#booking">预约服务</a></li>
+      <li><a href="#leaderboard">车手天梯</a></li>
+      <li><a href="#business">商务合作</a></li>
+      <li><a href="#booking" class="nav-cta">立即预约</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ====== Hero ====== -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="tagline">HIGH-PERFORMANCE LIFESTYLE</div>
+    <h1>不止是速度<span class="accent">.</span><br>是一种<span class="accent">生活方式</span></h1>
+    <p class="subtitle">
+      全球经典车源 · 国际赛道资源 · 驾驶培训体系 · 高端活动全案<br>
+      从模拟器到纽博格林，从第一次握方向盘到成为赛车手
+    </p>
+    <div class="hero-ctas">
+      <a href="#booking" class="btn btn-primary">预约体验</a>
+      <a href="#about" class="btn btn-outline">了解更多</a>
+    </div>
+  </div>
+</section>
+
+<!-- ====== 关于我们 ====== -->
+<section class="section" id="about">
+  <span class="section-label">ABOUT</span>
+  <h2 class="section-title">关于我们</h2>
+  <p class="section-desc">高端汽车生活方式全链路服务商</p>
+  <div class="block-grid">
+    <div class="placeholder-block">
+      [ 公司背景 & 发展历程 — 待填充 ]
+    </div>
+    <div class="placeholder-block">
+      [ 服务理念 & 品牌愿景 — 待填充 ]
+    </div>
+    <div class="placeholder-block">
+      [ 核心团队 & 赛道资源 — 待填充 ]
+    </div>
+  </div>
+</section>
+
+<!-- ====== 产品宣传 ====== -->
+<section class="section" id="products">
+  <span class="section-label">SERVICES</span>
+  <h2 class="section-title">产品与服务</h2>
+  <p class="section-desc">从模拟器到真实赛道，覆盖汽车生活的每一个触点</p>
+  <div class="block-grid">
+    <div class="placeholder-block" style="min-height:160px">
+      [ 🏎️ 模拟器 + 实车驾驶培训体系 ]
+    </div>
+    <div class="placeholder-block" style="min-height:160px">
+      [ 🏁 高端汽车活动全案策划 ]
+    </div>
+    <div class="placeholder-block" style="min-height:160px">
+      [ 🌍 汽车海外游学（意大利·德国）]
+    </div>
+    <div class="placeholder-block" style="min-height:160px">
+      [ 🎬 定制化汽车视觉营销服务 ]
+    </div>
+    <div class="placeholder-block" style="min-height:160px">
+      [ 🏆 赛车手身份打造 & KOL 内容创作 ]
+    </div>
+    <div class="placeholder-block" style="min-height:160px">
+      [ 🏛️ 企业藏品车管理 & 文化价值 ]
+    </div>
+  </div>
+</section>
+
+<!-- ====== 赛事直达 ====== -->
+<section class="section" id="race-hub">
+  <span class="section-label">RACE HUB</span>
+  <h2 class="section-title">赛事直达</h2>
+  <p class="section-desc">实时赛历 · F1 官方链接 · 赛道日档期</p>
+  <div class="cards-grid">
+
+    <!-- F1 官方链接 -->
+    <div class="card">
+      <div class="card-icon">🏎️</div>
+      <h3>F1 2026 赛历</h3>
+      <p>FIA Formula One World Championship 官方赛程，22 站全球巡回</p>
+      <p class="countdown" id="f1Countdown">加载中...</p>
+      <a href="https://www.formula1.com/en/racing/2026.html" target="_blank" rel="noopener">
+        → 查看完整赛历
+      </a>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">📡</div>
+      <h3>F1 直播 & 新闻</h3>
+      <p>官方实时数据、车手排名、车队动态</p>
+      <a href="https://www.formula1.com" target="_blank" rel="noopener">
+        → 访问 F1 官网
+      </a>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">🏁</div>
+      <h3>F1 中国大奖赛</h3>
+      <p>上海国际赛车场 · 2026 赛季</p>
+      <a href="https://www.formula1.com/en/racing/2026/China.html" target="_blank" rel="noopener">
+        → 购票 & 详情
+      </a>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">🏆</div>
+      <h3>WEC 世界耐力锦标赛</h3>
+      <p>勒芒 24 小时 · 全球耐力赛巅峰</p>
+      <a href="https://www.fiawec.com" target="_blank" rel="noopener">
+        → 访问 WEC 官网
+      </a>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">🇩🇪</div>
+      <h3>纽博格林 24 小时</h3>
+      <p>绿色地狱 · 耐力赛传奇</p>
+      <a href="https://www.24h-rennen.de" target="_blank" rel="noopener">
+        → 赛事官网
+      </a>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">🏎️</div>
+      <h3>GT World Challenge</h3>
+      <p>全球 GT 赛事 · 亚洲站 & 欧洲站</p>
+      <a href="https://www.gt-world-challenge.com" target="_blank" rel="noopener">
+        → 赛事官网
+      </a>
+    </div>
+
+    <div class="card">
+      <div class="card-icon"><span class="live-dot"></span></div>
+      <h3>赛道日预约</h3>
+      <p>上海国际赛车场 · 浙赛 · 珠赛 · 纽北</p>
+      <a href="#booking" style="color:var(--amber);">
+        → 查看可预约档期
+      </a>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">📋</div>
+      <h3>赛规 & 赛照</h3>
+      <p>中汽联赛照培训 · FIA 认证 · 参赛指南</p>
+      <a href="https://www.fasc.org.cn" target="_blank" rel="noopener">
+        → 中汽联官网
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ====== 赛车新闻 ====== -->
+<section class="section" id="news">
+  <span class="section-label">NEWS</span>
+  <h2 class="section-title">赛车新闻</h2>
+  <p class="section-desc">全球赛车资讯 · 行业动态 · 技术前沿</p>
+  <div class="block-grid">
+    <div class="placeholder-block">
+      [ 📰 新闻资讯模块 — 对接 RSS / API ]
+    </div>
+    <div class="placeholder-block">
+      [ 📝 专栏深度 — 赛道评测 / 车型分析 ]
+    </div>
+    <div class="placeholder-block">
+      [ 🎥 视频精选 — 赛道日花絮 / 车手访谈 ]
+    </div>
+  </div>
+</section>
+
+<!-- ====== 预约服务 ====== -->
+<section class="section" id="booking">
+  <span class="section-label">BOOK NOW</span>
+  <h2 class="section-title">预约服务</h2>
+  <p class="section-desc">选择你的驾驶体验 · 三步完成预约</p>
+
+  <div class="booking-section">
+
+    <!-- Steps Indicator -->
+    <div class="booking-steps">
+      <div class="step-indicator active" id="stepInd1">
+        <span class="step-num">1</span> 选择服务
+      </div>
+      <div class="step-indicator" id="stepInd2">
+        <span class="step-num">2</span> 时间 & 信息
+      </div>
+      <div class="step-indicator" id="stepInd3">
+        <span class="step-num">3</span> 确认下单
+      </div>
+    </div>
+
+    <!-- ====== Step 1: 选择服务 ====== -->
+    <div class="booking-step active" id="step1">
+
+      <!-- 服务类型 -->
+      <h4 style="margin-bottom:1rem;">选择服务类型</h4>
+      <div class="service-options">
+        <div class="service-card" onclick="selectService('simulator', this)" data-service="simulator">
+          <div style="font-size:2.5rem;">🕹️</div>
+          <h3>模拟器驾驶</h3>
+          <div class="price" data-base="200"><small>¥</small>200<small>/30分钟</small></div>
+          <div class="duration">专业赛车模拟器 · 纽北/银石/斯帕可选</div>
+        </div>
+        <div class="service-card" onclick="selectService('track', this)" data-service="track">
+          <div style="font-size:2.5rem;">🏁</div>
+          <h3>真实赛道体验</h3>
+          <div class="price" data-base="2999"><small>¥</small>2,999<small>/半天</small></div>
+          <div class="duration">专业赛道 · 教练陪同 · 含保险</div>
+        </div>
+        <div class="service-card" onclick="selectService('combo', this)" data-service="combo">
+          <div style="font-size:2.5rem;">🔥</div>
+          <h3>模拟+赛道套餐</h3>
+          <div class="price" data-base="3599"><small>¥</small>3,599<small>/全天</small></div>
+          <div class="duration">半天模拟器 + 半天真实赛道 · 最推荐</div>
+        </div>
+      </div>
+
+      <!-- 时长选择 -->
+      <h4 style="margin:2rem 0 0.5rem;">选择体验时长</h4>
+      <div class="duration-options">
+        <button class="duration-chip" onclick="selectDuration('30min', this)">30 分钟</button>
+        <button class="duration-chip" onclick="selectDuration('1h', this)">1 小时</button>
+        <button class="duration-chip selected" onclick="selectDuration('half-day', this)">半天（3 小时）</button>
+        <button class="duration-chip" onclick="selectDuration('full-day', this)">全天（6 小时）</button>
+        <button class="duration-chip" onclick="selectDuration('2day', this)">双日赛道日</button>
+      </div>
+
+      <div class="booking-nav" style="justify-content:flex-end;">
+        <button class="btn btn-primary" onclick="nextStep(2)">下一步 →</button>
+      </div>
+    </div>
+
+    <!-- ====== Step 2: 时间 & 信息 ====== -->
+    <div class="booking-step" id="step2">
+
+      <div class="datetime-grid">
+        <!-- 日期选择 -->
+        <div class="date-picker">
+          <h4 style="margin-bottom:0.8rem;">选择日期</h4>
+          <input type="date" id="bookingDate" onchange="state.date=this.value;updateSummary()" min="">
+        </div>
+
+        <!-- 时间段选择 -->
+        <div>
+          <h4 style="margin-bottom:0.8rem;">选择时间段</h4>
+          <div class="time-slots" id="timeSlots">
+            <div class="time-slot" onclick="selectTime('09:00-10:30', this)">09:00-10:30</div>
+            <div class="time-slot" onclick="selectTime('10:30-12:00', this)">10:30-12:00</div>
+            <div class="time-slot" onclick="selectTime('13:00-14:30', this)">13:00-14:30</div>
+            <div class="time-slot" onclick="selectTime('14:30-16:00', this)">14:30-16:00</div>
+            <div class="time-slot" onclick="selectTime('16:00-17:30', this)">16:00-17:30</div>
+            <div class="time-slot" onclick="selectTime('19:00-20:30', this)">19:00-20:30</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 注意事项 -->
+      <div class="notes-box">
+        <h4>⚠️ 注意事项</h4>
+        <ul>
+          <li>体验者需年满 18 周岁，持有有效驾照（真实赛道体验）</li>
+          <li>模拟器体验最低年龄 12 周岁，需家长陪同</li>
+          <li>建议穿着平底鞋及舒适衣物，赛道体验提供专业头盔及赛车服</li>
+          <li>体验前 24 小时内请勿饮酒，保持充足睡眠</li>
+          <li>如遇极端天气，赛道体验将顺延或全额退款</li>
+          <li>取消预约需提前 48 小时通知，逾期收取 30% 手续费</li>
+        </ul>
+      </div>
+
+      <div class="booking-nav">
+        <button class="btn btn-outline" onclick="prevStep(1)">← 上一步</button>
+        <button class="btn btn-primary" onclick="nextStep(3)">下一步 →</button>
+      </div>
+    </div>
+
+    <!-- ====== Step 3: 确认下单 ====== -->
+    <div class="booking-step" id="step3">
+      <h4 style="margin-bottom:1rem;">订单确认</h4>
+
+      <div class="summary-box" id="summaryBox">
+        <div class="row"><span>服务类型</span><span id="sumService">—</span></div>
+        <div class="row"><span>体验时长</span><span id="sumDuration">—</span></div>
+        <div class="row"><span>预约日期</span><span id="sumDate">—</span></div>
+        <div class="row"><span>时间段</span><span id="sumTime">—</span></div>
+        <div class="row total"><span>合计</span><span id="sumPrice">¥—</span></div>
+      </div>
+
+      <!-- 联系信息 -->
+      <h4 style="margin:1.5rem 0 0.8rem;">填写联系信息</h4>
+      <div class="form-group">
+        <label>姓名 *</label>
+        <input type="text" id="custName" placeholder="请输入姓名" oninput="updateSummary()">
+      </div>
+      <div class="form-group">
+        <label>手机号 *</label>
+        <input type="tel" id="custPhone" placeholder="请输入手机号" oninput="updateSummary()">
+      </div>
+      <div class="form-group">
+        <label>备注（选填）</label>
+        <textarea id="custNote" rows="2" placeholder="如有特殊需求请注明：如企业专场、多人体验等"></textarea>
+      </div>
+
+      <div class="booking-nav">
+        <button class="btn btn-outline" onclick="prevStep(2)">← 上一步</button>
+        <button class="btn btn-amber" onclick="submitBooking()">确认预约 ✓</button>
+      </div>
+    </div>
+
+    <!-- ====== Success ====== -->
+    <div class="booking-step" id="stepSuccess">
+      <div class="success-msg">
+        <div class="check">🏁</div>
+        <h3>预约成功！</h3>
+        <p>我们将在 30 分钟内通过电话/短信与您确认具体安排。</p>
+        <p style="color:var(--amber);margin-top:1rem;">期待在赛道见到你。</p>
+        <button class="btn btn-outline" onclick="resetBooking()" style="margin-top:2rem;">← 返回首页</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ====== 车手天梯 ====== -->
+<section class="section" id="leaderboard">
+  <span class="section-label">RANKING</span>
+  <h2 class="section-title">车手天梯</h2>
+  <p class="section-desc">赛道圈速排名 · 会员专属 · 每月更新</p>
+
+  <!-- 个人最佳 -->
+  <div class="pb-card">
+    <div class="pb-item">
+      <div class="pb-label">🏆 当前排名</div>
+      <div class="pb-value" style="color:#fff;">#<span id="myRank">12</span> <small style="font-size:0.6em;color:var(--gray);">/ 86</small></div>
+      <div class="pb-track">本月天梯</div>
+    </div>
+    <div class="pb-item">
+      <div class="pb-label">⏱ 个人最佳</div>
+      <div class="pb-value" id="myBest">2:11<span style="font-size:0.5em">.483</span></div>
+      <div class="pb-track">上海国际赛车场 · Porsche 911 GT3</div>
+    </div>
+    <div class="pb-item">
+      <div class="pb-label">📊 本月提升</div>
+      <div class="pb-value" style="color:#22c55e;">-1.8<span style="font-size:0.5em">s</span></div>
+      <div class="pb-track">较上月圈速</div>
+    </div>
+    <div class="pb-item">
+      <div class="pb-label">🏎️ 总圈数</div>
+      <div class="pb-value" style="color:#fff;">247</div>
+      <div class="pb-track">累计有效圈</div>
+    </div>
+  </div>
+
+  <!-- 赛道 & 周期切换 -->
+  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
+    <div class="leaderboard-tabs" id="trackTabs">
+      <button class="lb-tab active" onclick="switchTrack('all', this)">全部赛道</button>
+      <button class="lb-tab" onclick="switchTrack('shanghai', this)">上海国际赛车场</button>
+      <button class="lb-tab" onclick="switchTrack('zhejiang', this)">浙江国际赛车场</button>
+      <button class="lb-tab" onclick="switchTrack('zhuhai', this)">珠海国际赛车场</button>
+      <button class="lb-tab" onclick="switchTrack('sim', this)">模拟器圈速</button>
+      <button class="lb-tab" onclick="switchTrack('nurburgring', this)">纽博格林</button>
+    </div>
+    <div class="leaderboard-tabs" id="periodTabs">
+      <button class="lb-tab active" onclick="switchPeriod('monthly', this)">本月</button>
+      <button class="lb-tab" onclick="switchPeriod('alltime', this)">全时期</button>
+    </div>
+  </div>
+
+  <!-- 天梯表格 -->
+  <div class="lb-table-wrap">
+    <table class="lb-table">
+      <thead>
+        <tr>
+          <th>排名</th>
+          <th>车手</th>
+          <th>车型</th>
+          <th>赛道</th>
+          <th>最佳圈速</th>
+          <th>日期</th>
+          <th>变化</th>
+        </tr>
+      </thead>
+      <tbody id="lbBody">
+        <!-- JS 填充 -->
+      </tbody>
+    </table>
+  </div>
+
+  <p style="color:var(--gray);font-size:0.8rem;margin-top:1rem;">
+    💡 圈速由专业计时系统采集，参赛后自动录入。如有疑问请联系赛道工作人员。
+  </p>
+</section>
+
+<!-- ====== 商务合作 ====== -->
+<section class="section" id="business">
+  <span class="section-label">PARTNERSHIP</span>
+  <h2 class="section-title">商务合作</h2>
+  <p class="section-desc">企业专场 · 品牌联名 · 赛道日定制 · 媒体合作</p>
+  <div class="block-grid">
+    <div class="placeholder-block">
+      [ 🤝 企业团建定制 — 待填充 ]
+    </div>
+    <div class="placeholder-block">
+      [ 🎯 品牌联合活动 — 待填充 ]
+    </div>
+    <div class="placeholder-block">
+      [ 📺 媒体 & KOL 合作 — 待填充 ]
+    </div>
+  </div>
+</section>
+
+<!-- ====== Footer ====== -->
+<footer class="footer">
+  <p>© 2026 Meet Car · 高端汽车生活方式</p>
+  <p style="margin-top:0.5rem;">
+    <a href="#home">首页</a> ·
+    <a href="#about">关于我们</a> ·
+    <a href="#race-hub">赛事直达</a> ·
+    <a href="#booking">预约服务</a> ·
+    <a href="#leaderboard">车手天梯</a> ·
+    <a href="#business">商务合作</a>
+  </p>
+</footer>
+
+<!-- ====== JavaScript ====== -->
+<script>
+// ── State ──
+let state = {
+  service: null,
+  duration: 'half-day',
+  date: '',
+  time: '',
+  name: '',
+  phone: ''
+};
+
+// ── Navigation ──
+function toggleMenu() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+
+// Smooth scroll for nav links
+document.querySelectorAll('.nav-links a[href^="#"]').forEach(link => {
+  link.addEventListener('click', function(e) {
+    document.getElementById('navLinks').classList.remove('open');
+  });
+});
+
+// ── Service Selection ──
+function selectService(type, el) {
+  state.service = type;
+  document.querySelectorAll('.service-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  updateSummary();
+}
+
+function selectDuration(dur, el) {
+  state.duration = dur;
+  document.querySelectorAll('.duration-chip').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  updateSummary();
+}
+
+function selectTime(time, el) {
+  state.time = time;
+  document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+  el.classList.add('selected');
+  updateSummary();
+}
+
+// ── Step Navigation ──
+function nextStep(n) {
+  // Validate current step
+  if (n === 2 && !state.service) {
+    alert('请先选择服务类型');
+    return;
+  }
+  document.querySelectorAll('.booking-step').forEach(s => s.classList.remove('active'));
+  document.getElementById('step' + n).classList.add('active');
+  updateStepIndicators(n);
+  window.scrollTo({ top: document.getElementById('booking').offsetTop - 80, behavior: 'smooth' });
+}
+
+function prevStep(n) {
+  document.querySelectorAll('.booking-step').forEach(s => s.classList.remove('active'));
+  document.getElementById('step' + n).classList.add('active');
+  updateStepIndicators(n);
+  window.scrollTo({ top: document.getElementById('booking').offsetTop - 80, behavior: 'smooth' });
+}
+
+function updateStepIndicators(active) {
+  [1,2,3].forEach(i => {
+    const ind = document.getElementById('stepInd' + i);
+    ind.classList.toggle('active', i <= active);
+  });
+}
+
+// ── Summary ──
+function updateSummary() {
+  const serviceNames = { simulator: '模拟器驾驶', track: '真实赛道体验', combo: '模拟+赛道套餐' };
+  const durationNames = { '30min': '30 分钟', '1h': '1 小时', 'half-day': '半天（3 小时）', 'full-day': '全天（6 小时）', '2day': '双日赛道日' };
+  const basePrices = { simulator: 200, track: 2999, combo: 3599 };
+  const durationMultipliers = { '30min': 0.5, '1h': 1, 'half-day': 1, 'full-day': 2, '2day': 4 };
+
+  const serviceName = serviceNames[state.service] || '—';
+  const durationName = durationNames[state.duration] || '—';
+  const base = basePrices[state.service] || 0;
+  const multiplier = durationMultipliers[state.duration] || 1;
+  const total = base * multiplier;
+
+  document.getElementById('sumService').textContent = serviceName;
+  document.getElementById('sumDuration').textContent = durationName;
+  document.getElementById('sumDate').textContent = state.date || document.getElementById('bookingDate')?.value || '—';
+  document.getElementById('sumTime').textContent = state.time || '—';
+  document.getElementById('sumPrice').textContent = '¥' + total.toLocaleString();
+}
+
+// Listen to date input
+document.getElementById('bookingDate').addEventListener('input', function() {
+  state.date = this.value;
+  updateSummary();
+});
+
+// Listen to name & phone
+document.getElementById('custName').addEventListener('input', function() { state.name = this.value; });
+document.getElementById('custPhone').addEventListener('input', function() { state.phone = this.value; });
+
+// ── Submit ──
+function submitBooking() {
+  if (!state.name || !state.phone) {
+    alert('请填写姓名和手机号');
+    return;
+  }
+  if (!state.date || !state.time) {
+    alert('请选择日期和时间段');
+    return;
+  }
+  // Show success
+  document.querySelectorAll('.booking-step').forEach(s => s.classList.remove('active'));
+  document.getElementById('stepSuccess').classList.add('active');
+  [1,2,3].forEach(i => {
+    document.getElementById('stepInd' + i).classList.add('active');
+  });
+  window.scrollTo({ top: document.getElementById('booking').offsetTop - 80, behavior: 'smooth' });
+}
+
+function resetBooking() {
+  state = { service: null, duration: 'half-day', date: '', time: '', name: '', phone: '' };
+  document.querySelectorAll('.service-card').forEach(c => c.classList.remove('selected'));
+  document.querySelectorAll('.duration-chip').forEach(c => c.classList.remove('selected'));
+  document.querySelector('.duration-chip:nth-child(3)')?.classList.add('selected');
+  document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+  document.querySelectorAll('.booking-step').forEach(s => s.classList.remove('active'));
+  document.getElementById('step1').classList.add('active');
+  updateStepIndicators(1);
+  document.getElementById('custName').value = '';
+  document.getElementById('custPhone').value = '';
+  document.getElementById('custNote').value = '';
+  document.getElementById('bookingDate').value = '';
+  document.querySelectorAll('#summaryBox span').forEach(s => s.textContent = '—');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── Set min date to today ──
+document.getElementById('bookingDate').min = new Date().toISOString().split('T')[0];
+
+// ── F1 Next Race Countdown ──
+// 2026 Spanish GP — June 14 (approx)
+const nextRace = new Date('2026-06-14T14:00:00Z');
+function updateCountdown() {
+  const now = new Date();
+  const diff = nextRace - now;
+  if (diff <= 0) {
+    document.getElementById('f1Countdown').textContent = 'RACE DAY! 🏁';
+    return;
+  }
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  document.getElementById('f1Countdown').textContent = `${days}天 ${hours}时`;
+}
+updateCountdown();
+setInterval(updateCountdown, 60000);
+
+// ── Leaderboard / 天梯 ──
+const demoData = [
+  { rank:1,  name:'张驰',        car:'Porsche 911 GT3 RS', track:'上海国际赛车场', time:'2:08.427',  date:'06-12', change:'up' },
+  { rank:2,  name:'刘易斯',      car:'Ferrari 296 GTB',   track:'浙江国际赛车场', time:'1:42.133',  date:'06-10', change:'same' },
+  { rank:3,  name:'Alex Chen',   car:'McLaren 720S',      track:'珠海国际赛车场',   time:'1:39.805',  date:'06-08', change:'down' },
+  { rank:4,  name:'王浩宇',      car:'BMW M4 CSL',        track:'上海国际赛车场', time:'2:09.891',  date:'06-14', change:'up' },
+  { rank:5,  name:'周冠宇',      car:'Ferrari 488 Pista',  track:'上海国际赛车场', time:'2:10.250',  date:'06-11', change:'new' },
+  { rank:6,  name:'Mike Ross',   car:'Lamborghini Huracan','上海国际赛车场',       time:'2:10.412',  date:'06-09', change:'up' },
+  { rank:7,  name:'陈涛',        car:'Porsche 718 GT4',    track:'浙江国际赛车场', time:'1:43.776',  date:'06-13', change:'down' },
+  { rank:8,  name:'赵明',        car:'Mercedes AMG GT R',  track:'珠海国际赛车场',   time:'1:40.551',  date:'06-07', change:'same' },
+  { rank:9,  name:'Jacky Wu',    car:'Nissan GT-R Nismo',  track:'上海国际赛车场', time:'2:11.002',  date:'06-12', change:'up' },
+  { rank:10, name:'孙浩',        car:'Audi R8 V10',        track:'浙江国际赛车场', time:'1:44.320',  date:'06-06', change:'same' },
+  { rank:11, name:'杨帆',        car:'Corvette C8 Z06',    track:'纽博格林',       time:'7:42.558',  date:'06-05', change:'down' },
+  { rank:12, name:'吴晟祺',      car:'Porsche 911 GT3',    track:'上海国际赛车场', time:'2:11.483',  date:'06-13', change:'up', isMe:true },
+  { rank:13, name:'林峰',        car:'BMW M2 CS',          track:'珠海国际赛车场',   time:'1:41.226',  date:'06-10', change:'new' },
+  { rank:14, name:'黄俊',        car:'Lotus Emira',        track:'浙江国际赛车场', time:'1:45.093',  date:'06-08', change:'down' },
+  { rank:15, name:'Tony Lee',    car:'Porsche 911 Turbo S',track:'纽博格林',       time:'7:48.119',  date:'06-04', change:'up' },
+  { rank:16, name:'沈伟',        car:'Mercedes AMG GT',    track:'上海国际赛车场', time:'2:13.884',  date:'06-11', change:'same' },
+  { rank:17, name:'邓超',        car:'Alpine A110 R',      track:'珠海国际赛车场',   time:'1:42.005',  date:'06-09', change:'new' },
+  { rank:18, name:'彭程',        car:'Maserati MC20',      track:'浙江国际赛车场', time:'1:46.312',  date:'06-07', change:'down' },
+];
+
+const trackMap = {
+  'all': '全部赛道',
+  'shanghai': '上海国际赛车场',
+  'zhejiang': '浙江国际赛车场',
+  'zhuhai': '珠海国际赛车场',
+  'sim': '模拟器圈速',
+  'nurburgring': '纽博格林',
+};
+
+let currentTrack = 'all';
+let currentPeriod = 'monthly';
+
+function switchTrack(key, el) {
+  currentTrack = key;
+  document.querySelectorAll('#trackTabs .lb-tab').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  renderLeaderboard();
+}
+
+function switchPeriod(key, el) {
+  currentPeriod = key;
+  document.querySelectorAll('#periodTabs .lb-tab').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  renderLeaderboard();
+}
+
+function renderLeaderboard() {
+  let data = [...demoData];
+
+  // Filter by track
+  if (currentTrack !== 'all') {
+    const trackName = trackMap[currentTrack];
+    data = data.filter(d => d.track === trackName);
+  }
+
+  // Filter by period (mock: 'alltime' shows more entries, 'monthly' shows current)
+  if (currentPeriod === 'alltime') {
+    // Add some historical entries for all-time view
+    data.push(
+      { rank:99, name:'Lewis H.', car:'McLaren Senna', track:'上海国际赛车场', time:'2:06.880', date:'2025-11', change:'same' },
+      { rank:99, name:'王博', car:'Ferrari SF90', track:'珠海国际赛车场', time:'1:38.421', date:'2025-09', change:'same' },
+    );
+  }
+
+  // Sort by time (string comparison works for our format)
+  data.sort((a, b) => a.time.localeCompare(b.time));
+
+  // Re-assign ranks
+  data.forEach((d, i) => d.rank = i + 1);
+
+  // Move "isMe" to correct position based on current data
+  const me = data.find(d => d.isMe);
+  if (me) {
+    document.getElementById('myRank').textContent = me.rank;
+    document.getElementById('myBest').innerHTML = me.time.replace(/\.(\d+)/, '<span style="font-size:0.5em">.$1</span>');
+  }
+
+  const changeIcons = {
+    'up':   '<span class="lb-badge up">▲ 升</span>',
+    'down': '<span class="lb-badge down">▼ 降</span>',
+    'same': '<span class="lb-badge" style="background:rgba(255,255,255,0.05);color:var(--gray);">━ 持平</span>',
+    'new':  '<span class="lb-badge new">● 新</span>',
+  };
+
+  const medalIcons = { 1: '🥇', 2: '🥈', 3: '🥉' };
+
+  const rows = data.map(d => {
+    const showMedal = medalIcons[d.rank];
+    const rankClass = d.rank <= 3 ? `rank-${d.rank}` : '';
+    const meClass = d.isMe ? 'is-me' : '';
+    const isMeBest = d.isMe;
+
+    return `
+      <tr class="${rankClass} ${meClass}">
+        <td>${showMedal ? `<span class="lb-medal">${showMedal}</span>` : d.rank}</td>
+        <td><strong>${d.name}</strong>${d.isMe ? ' <span style="font-size:0.7rem;color:var(--red);">(你)</span>' : ''}</td>
+        <td>${d.car}</td>
+        <td>${d.track}</td>
+        <td><span class="lb-time${isMeBest ? ' best' : ''}">${d.time}</span></td>
+        <td>${d.date}</td>
+        <td>${changeIcons[d.change] || ''}</td>
+      </tr>
+    `;
+  }).join('');
+
+  document.getElementById('lbBody').innerHTML = rows;
+}
+
+// Initial render
+renderLeaderboard();
+
+// ── Smooth scroll for all anchor links ──
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+
+</body>
+</html>
