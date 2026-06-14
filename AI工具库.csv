@@ -1,0 +1,33 @@
+分类,工具名,功能简述,价格（月费）,🏎️赛车模拟器,🎨艺术空间,💼商业活动,推荐指数,上手难度,替代工具,官方链接,备注
+内容创作,DeepSeek,中文最强文案/代码/分析，5000+字长文本，多风格适配,免费,赛事战报/选手数据分析文案,展览种草文/公众号深度文/朋友圈转发文多版本一键生成,活动方案/邀约函/主持人串词,⭐⭐⭐⭐⭐,低,豆包/Kimi,https://chat.deepseek.com,日常内容创作主力
+内容创作,Claude,200K上下文，长文档分析，逻辑推理强,免费/Pro $20,赛事数据深度复盘报告,展览策展分析/观众评论语义分析,活动方案多维度评估,⭐⭐⭐⭐⭐,中,DeepSeek,https://claude.ai,长文本分析首选
+内容创作,HyperFrames,AI 写 HTML 代码生成视频/特效，Apache 2.0 开源,免费开源,赛后高光合辑自动生成+特效字幕,展览动态宣传片/艺术家作品动效展示,活动快剪/暖场视频批量产出,⭐⭐⭐⭐⭐,中（需HTML基础）,Remotion/RenderVid,https://hyperframes.ai,HeyGen出品，2026年4月发布
+内容创作,Remotion,AI 写 React 组件生成程序化视频，Lambda 分布式渲染,个人免费/商业授权,批量赛事花絮程序化生成,展览系列化内容模板生产,活动视频模板化批量产出,⭐⭐⭐⭐,高（需React）,HyperFrames,https://remotion.dev,生态成熟，分布式渲染强
+内容创作,Gamma,AI 一句话生成演示文稿PPT，带数据分析图表,免费/Pro $10,赛事数据报告PPT自动生成,展览提案/艺术家介绍PPT,活动方案汇报/复盘PPT,⭐⭐⭐⭐⭐,低,Beautiful.ai,https://gamma.app,报告从3天缩到4小时
+视频生成,HeyGen,数字人口播天花板，Avatar V极逼真，95%成品率,Creator $29/Pro $49-99,赛车解说数字人/赛后口播,艺术家虚拟讲解员/展览导览,活动主持数字人/嘉宾致辞,⭐⭐⭐⭐⭐,低,可灵数字人/说得AI,https://heygen.com,不出镜解决方案首选
+视频生成,即梦,字节旗下文生图/图转视频，免费额度多，剪映打通,免费额度,赛前海报/选手卡/成绩榜单一键生成,展览海报/艺术家介绍卡批量生成,活动邀请函/姓名牌/主视觉,⭐⭐⭐⭐⭐,低,Midjourney,https://jimeng.jianying.com,日常使用首选，免费够用
+视频生成,可灵数字人2.0 Pro,国产数字人，口型同步精准，免费额度,免费额度,赛车解说AI口播,展览导览口播,活动信息播报,⭐⭐⭐⭐,低,HeyGen,https://kling.kuaishou.com,国产替代方案
+视频生成,说得AI,免费数字人克隆，手机操作，无水印,免费,快速口播内容日更,展览介绍日更内容,活动预告日更,⭐⭐⭐,低,HeyGen,https://shuodeai.com,零成本入门
+视频生成,Creatify,URL 转广告视频，一次生成10-20变体测款,按量付费,赛事宣传视频变体测款,展览推广视频多版本测款,活动广告素材批量测试,⭐⭐⭐⭐,低,Arcads,https://creatify.ai,电商测款利器
+视频生成,LTX Pipeline,开源免费AI视频生成，电影质感，全身全场景,免费开源,赛车品牌宣传片（需反复调试）,艺术空间氛围宣传片,高端活动概念片,⭐⭐⭐,高,Runway,https://ltx.studio,效果最好但翻车率40-60%
+设计,Midjourney,文生图质感天花板，画面最精美,Basic $10,赛事KV主视觉,展览海报/艺术品视觉,活动主KV/氛围图,⭐⭐⭐⭐⭐,中,即梦/DALL-E,https://midjourney.com,追求极致画质时用
+设计,Miora,腾讯全场景创意工具，记住品牌调性，批量生成统一风格,企业定价,赛事品牌体系视觉输出,展览品牌统一视觉,活动品牌物料批量产出,⭐⭐⭐⭐,低,即梦,https://cloud.tencent.com,企业级设计一致性解决方案
+设计,Canva,在线设计+AI，模板最全，上手最低,免费/Pro,快速社交媒体图/资讯图,快速展览海报/展签,快速活动物料/桌卡,⭐⭐⭐⭐⭐,低,稿定设计,https://canva.com,非设计师首选
+设计,Venngage AI,文字转信息图/数据图表设计,免费/高级付费,赛事数据可视化图表,展览数据/观众画像图表,活动ROI数据可视化,⭐⭐⭐,低,Piktochart,https://venngage.com,数据报告设计自动化
+运营,Bardeen,浏览器端自动化，200+即用流程,免费/Pro $20,赛事信息自动抓取整理,展览竞品自动监控,活动报名数据自动收集,⭐⭐⭐⭐,中,Make/Zapier,https://bardeen.ai,零代码自动化
+运营,Circleboom,AI社媒管理，一键分发10+平台,$24.99,赛事社媒多平台分发,展览内容多平台分发,活动宣发多平台同步,⭐⭐⭐⭐,低,Buffer/Hootsuite,https://circleboom.com,社媒运营提效
+运营,Reclaim AI,智能日程管理，自动排会议/保护专注时间,免费/Pro $10,团队赛事排期智能协调,展览档期排布,活动筹备节点自动安排,⭐⭐⭐,低,Motion/Clockwise,https://reclaim.ai,日程管理自动化
+运营,Mem,AI知识管理，自动打标签/AI搜索笔记,Pro $10,赛事知识库/最佳实践积累,展览资料/艺术家档案管理,活动方案/供应商资料管理,⭐⭐⭐⭐,低,Notion AI,https://mem.ai,个人/团队知识库
+运营,Lark 多维表格AI,数据自然语言查询，对话式数据分析,基础免费/Pro $12,赛事数据自然语言分析,展览数据/客流数据查询,活动数据复盘查询,⭐⭐⭐⭐⭐,低,飞书/钉钉,https://lark.com,公司工具库载体本身
+运营,Google Gemini for Workspace,办公全家桶AI，文档/表格/邮件全覆盖,Workspace内置,赛事文档协作/数据表格分析,展览文档协作/邮件起草,活动方案协作/邮件沟通,⭐⭐⭐⭐,低,Microsoft Copilot,https://workspace.google.com,Google生态用户首选
+客服,Chatling,零代码AI Bot，喂URL/PDF即训练,免费/基础$15,赛事预约/票价咨询Bot,展品讲解Bot（观众扫码问）,活动FAQ Bot（停车/签到/流程）,⭐⭐⭐⭐⭐,低,Tidio/Intercom,https://chatling.ai,客服自动化首选
+客服,Tidio,轻量客服Bot，最适合小团队,免费/高级付费,赛事基础咨询,展览基础咨询,活动基础咨询,⭐⭐⭐⭐,低,Chatling,https://tidio.com,小团队起步方案
+客服,Intercom,进阶AI客服，学习真人回复风格,中高端定价,赛事VIP客户服务,艺术空间高净值访客服务,商业活动VIP客户服务,⭐⭐⭐⭐,中,Zendesk AI,https://intercom.com,需要更人性化回复时用
+客服,Rosie,AI自动接电话，接住电话端客户,定制报价,赛事电话预约/咨询,艺术空间电话咨询,活动电话问询,⭐⭐⭐,低,Air,https://heyrosie.com,电话端客户不丢失
+客服,Zendesk AI,企业级工单系统，自动分类/派单/时效提升50%,企业定价,赛事客服工单管理（规模化）,展览客服工单管理,活动客服工单管理,⭐⭐⭐⭐,中,Intercom,https://zendesk.com,规模化运营时用
+综合平台,Hogee（百度智能云）,数字员工，预置社媒运营/营销素材/数据分析角色，开箱即用,订阅制,赛事全流程数字员工,展览全流程数字员工,活动全流程数字员工,⭐⭐⭐⭐,低,WorkBuddy,https://cloud.baidu.com,中型企业一站式方案
+综合平台,WorkBuddy（腾讯）,多智能体协作+Discord/Slack/Telegram远程操控，AI效率中枢,企业定价,赛事团队远程AI协作,展览团队远程AI协作,活动筹备团队AI协作,⭐⭐⭐⭐,中,Hogee,https://cloud.tencent.com,国际化团队首选
+综合平台,Moxo,AI流程编排，多方向工作流，合规管理,免费/Pro $80,赛事审批/合规流程自动化,展览审批流程自动化,活动合规/签约流程自动化,⭐⭐⭐⭐,中,ServiceNow,https://moxo.com,复杂业务流程编排
+办公提效,Microsoft Copilot,M365全家桶AI，Word/PPT/Excel/Outlook全覆盖,M365内置,赛事文档/PPT/邮件AI辅助,展览文档/PPT/邮件AI辅助,活动方案/合同/邮件AI辅助,⭐⭐⭐⭐,低,Google Gemini,https://microsoft.com/copilot,Microsoft生态用户首选
+办公提效,腾讯 Miora,全场景创意智能体，记审美风格，生图/视频/3D/UI,企业定价,赛事品牌视觉体系,展览品牌视觉体系,活动品牌视觉体系,⭐⭐⭐⭐,低,即梦,https://cloud.tencent.com,腾讯生态创意工作室
+办公提效,字节 Lance 3B,开源统一多模态：图/视频理解+生成+编辑，40G显卡本地跑,Apache 2.0免费商用,赛事视频理解+二次创作,展览视觉理解+内容生成,活动视觉理解+素材生成,⭐⭐⭐,高,Qwen3.5-Omni,https://huggingface.co,本地部署最强开源方案
